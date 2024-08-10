@@ -1,5 +1,6 @@
 package dev.j3fftw.litexpansion;
 
+import dev.j3fftw.litexpansion.nms.NMSEnchants;
 import dev.j3fftw.litexpansion.resources.ThoriumResource;
 import dev.j3fftw.litexpansion.service.MetricsService;
 import dev.j3fftw.litexpansion.ticker.PassiveElectricRemovalTicker;
@@ -15,7 +16,6 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
@@ -69,11 +69,7 @@ public class LiteXpansion extends JavaPlugin implements SlimefunAddon {
     private void registerEnchantments() {
         String version = Bukkit.getServer().getVersion();
         if(version.contains("1.20.4")){
-            try {
-                Class.forName("dev.j3fftw.litexpansion.nms.NMSEnchants").getDeclaredConstructor(Plugin.class).newInstance(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            new NMSEnchants(this);
             return;
         }
 
